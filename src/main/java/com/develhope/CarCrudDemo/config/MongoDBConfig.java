@@ -1,5 +1,6 @@
 package com.develhope.CarCrudDemo.config;
 
+import com.develhope.CarCrudDemo.entites.Car;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -21,7 +22,7 @@ public class MongoDBConfig extends AbstractMongoClientConfiguration {
     @Override
     public MongoClient mongoClient() {
         ConnectionString connectionString = new ConnectionString
-                ("mongodb+srv://urbanifederico5:<password>.rxoznvf.mongodb.net/?retryWrites=true&w=majority");
+                ("mongodb+srv://urbanifederico5:qj42cQajRjdjwIHD@mongodbcluster0.rxoznvf.mongodb.net/?retryWrites=true&w=majority");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
