@@ -1,7 +1,8 @@
 package com.develhope.CarCrudDemo.repositories;
 
 import com.develhope.CarCrudDemo.entites.Car;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CarRepository extends MongoRepository<Car,String> {
+
+public interface CarRepository extends JpaRepository<Car,String> {
 }
