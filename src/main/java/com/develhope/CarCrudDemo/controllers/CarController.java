@@ -4,6 +4,7 @@ import com.develhope.CarCrudDemo.entites.Car;
 import com.develhope.CarCrudDemo.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +22,12 @@ public class CarController {
         return karRepository.save(car);
     }
 
-    @GetMapping("/allcars")
+    @GetMapping("")
     public List<Car> findAllCars() {
         return karRepository.findAll();
     }
 
-    @GetMapping("findcar/{id}")
+    @GetMapping("{id}")
     public Optional<Car> findSingleCar(@PathVariable String id) {
 
         if (karRepository.existsById(id)) {
@@ -37,21 +38,20 @@ public class CarController {
         }
     }
 
-    @PutMapping("/{id}/{type}")
-    public Car changeType(@PathVariable String id,
-                          @PathVariable String type,
-                          @RequestBody Car car) {
-
-        if (karRepository.existsById(id)) {
-            car.setType(type);
-            return karRepository.save(car);
+    @PutMapping("/{id}")
+    public ResponseEntity<Car> updateCar(@PathVariable("id") String id, @RequestBody Car car) {
+        Optional<Car> optionalCar = karRepository.findById(id);
+        if (optionalCar != null) {
+            car.setId(id);
+            karRepository.save(car);
+            return ResponseEntity.ok(car);
         } else {
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus DeleteCarbyId(@PathVariable String id) {
+    public HttpStatus deleteCarbyId(@PathVariable String id) {
         if (karRepository.existsById(id)) {
             karRepository.deleteById(id);
             return HttpStatus.NO_CONTENT;
